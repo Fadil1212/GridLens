@@ -4,7 +4,7 @@
 
 [Open the deployed app](https://gridlens-blond.vercel.app/) · [Architecture](docs/ARCHITECTURE.md) · [Model methodology](docs/MODEL_CARD.md) · [Local setup](docs/SETUP.md) · [Validation](docs/VALIDATION.md) · [API reference](docs/API.md)
 
-> **Demo access:** The deployment currently requires the owner's ChatGPT sign-in. It is not yet an anonymous recruiter demo. Change the Site's audience to public before adding it to job applications; publishing this repository alone does not change app access.
+> **Demo access:** The live demo is public on Vercel. [Vercel source and deployment docs](https://github.com/Fadil1212/GridLens/tree/vercel) use native Next.js; this main branch preserves the original Sites/Cloudflare implementation.
 
 ## The problem
 
