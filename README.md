@@ -2,9 +2,9 @@
 
 **Live electricity analytics, demand forecasting, and scenario planning built by Fadil Mohammed Surur.**
 
-[Open the deployed app](https://gridlens-fadil.blushreed33.chatgpt.site) · [Architecture](docs/ARCHITECTURE.md) · [Model methodology](docs/MODEL_CARD.md) · [Local setup](docs/SETUP.md) · [Validation](docs/VALIDATION.md) · [API reference](docs/API.md) · [Vercel deployment](docs/VERCEL.md)
+[Open the deployed app](https://gridlens-blond.vercel.app/) · [Architecture](docs/ARCHITECTURE.md) · [Model methodology](docs/MODEL_CARD.md) · [Local setup](docs/SETUP.md) · [Validation](docs/VALIDATION.md) · [API reference](docs/API.md) · [Vercel deployment](docs/VERCEL.md)
 
-> **Deployment status:** This branch is prepared for Vercel. The demo link above is the existing owner-private Sites deployment; it is not a Vercel deployment URL. See [VERCEL.md](docs/VERCEL.md) for the remaining account configuration.
+> **Deployment status:** Live on Vercel. Production deployment of commit `3437feb` reached READY on October 11, 2026. The public dashboard and live grid/energy APIs were verified.
 
 ## The problem
 

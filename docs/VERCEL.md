@@ -37,7 +37,19 @@ The cache is not an SQL database or historical warehouse. If historical snapshot
 5. Verify `/`, `/api/grid?ba=PJM`, `/api/energy`, and the dashboard interactions.
 6. Configure project-level deployment protection to match the audience you intend; a Vercel URL is not proof of anonymous access.
 
-No Vercel deployment URL is asserted until the provider reports a successful deployment. After publication, replace the README demo link and the GitHub About website with the verified URL.
+## Verified production deployment
+
+- Live app: https://gridlens-blond.vercel.app/
+- Vercel project: `gridlens`
+- Source commit: `3437febcf1850937f6f5431faf81860d62c16917` on `vercel`
+- Provider state: READY; build duration approximately 48 seconds.
+- Verified October 11, 2026: public dashboard loads live PJM observations; Forecast lab renders benchmark scores; Energy transition renders 51 jurisdictions; Decision studio updates its planning buffer when the stress slider changes.
+- HTTP checks: `/api/grid?ba=PJM` 200, `/api/energy` 200, invalid authority 400.
+- EIA_API_KEY is stored as a sensitive server environment variable for production and preview.
+
+The deployment was created explicitly from the commit above. For automatic production releases, verify the Vercel project's Git production branch is `vercel` before relying on push-triggered deployment. Main retains the original Cloudflare implementation.
+
+Observability limitation: build-log retrieval through the connector returned a team-scope authorization error. Verification used provider READY status, public HTTP checks and browser interactions. No runtime error-log scan or monitoring-drain audit is claimed.
 
 ## Local development
 
