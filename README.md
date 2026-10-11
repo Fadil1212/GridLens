@@ -2,9 +2,9 @@
 
 **Live electricity analytics, demand forecasting, and scenario planning built by Fadil Mohammed Surur.**
 
-[Open the deployed app](https://gridlens-fadil.blushreed33.chatgpt.site) · [Architecture](docs/ARCHITECTURE.md) · [Model methodology](docs/MODEL_CARD.md) · [Local setup](docs/SETUP.md) · [Validation](docs/VALIDATION.md) · [API reference](docs/API.md)
+[Open the deployed app](https://gridlens-fadil.blushreed33.chatgpt.site) · [Architecture](docs/ARCHITECTURE.md) · [Model methodology](docs/MODEL_CARD.md) · [Local setup](docs/SETUP.md) · [Validation](docs/VALIDATION.md) · [API reference](docs/API.md) · [Vercel deployment](docs/VERCEL.md)
 
-> **Demo access:** The deployment currently requires the owner's ChatGPT sign-in. It is not yet an anonymous recruiter demo. Change the Site's audience to public before adding it to job applications; publishing this repository alone does not change app access.
+> **Deployment status:** This branch is prepared for Vercel. The demo link above is the existing owner-private Sites deployment; it is not a Vercel deployment URL. See [VERCEL.md](docs/VERCEL.md) for the remaining account configuration.
 
 ## The problem
 
@@ -46,19 +46,19 @@ flowchart TD
     B --> C["Hourly alignment and validation"]
     C --> D["Features and ridge regression"]
     D --> E["Holdout metrics and future outlook"]
-    E --> F["D1 database snapshots"]
+    E --> F["Next.js server data cache"]
     F --> G["React analytical dashboard"]
     G --> H["CSV exports and scenario worksheet"]
 ```
 
-**Stack:** React 19, TypeScript, Vinext/Vite, Recharts, server API routes, Drizzle ORM, Cloudflare D1 and Workers through Sites. The forecasting implementation uses an explicit numerical ridge solver, making feature generation, fitting and evaluation inspectable in code.
+**Stack:** React 19, TypeScript, Next.js, Recharts, server API routes, Vercel Node.js functions and the Next.js server data cache. The forecasting implementation uses an explicit numerical ridge solver, making feature generation, fitting and evaluation inspectable in code.
 
 ## Engineering features
 
 - Server-side EIA credentials; the browser never receives the API key.
 - Paginated ingestion, bounded retry attempts and explicit API error states.
 - Hourly UTC alignment with missing observations retained.
-- Durable SQL snapshots with ten-minute expiry for grid analysis and one-day expiry for state economics.
+- Server-cached analytical payloads with ten-minute revalidation for grid analysis and one-day revalidation for state economics.
 - Chronological holdout evaluation on the same valid pairs across three methods.
 - Separate earlier calibration fitting and empirical uncertainty bands.
 - Recursive next-24-hour forecasting after refitting on retrieved observations.
@@ -71,15 +71,12 @@ Requires Node.js **22.13 or later**, pnpm **11.25.0**, and an EIA API key.
 
 ```bash
 pnpm install --frozen-lockfile
-cp .env.example .env
-cp .dev.vars.example .dev.vars
-# Set your EIA_API_KEY privately in the two ignored local files.
-pnpm build
-node --import ./scripts/sites-env.mjs ./node_modules/wrangler/bin/wrangler.js d1 execute DB --local --config dist/server/wrangler.json --persist-to .wrangler/state --file drizzle/0000_youthful_stellaris.sql
+cp .env.example .env.local
+# Set EIA_API_KEY privately in .env.local.
 pnpm dev
 ```
 
-Open the loopback URL printed by the server (normally `http://localhost:5173`). On Windows, create the environment files by copying them in your file manager. Apply the migration once per new local database; do not replay it on an existing table. Detailed steps and troubleshooting: [SETUP.md](docs/SETUP.md).
+Open `http://localhost:3000`. No separate database or schema migration is required on this branch. See [SETUP.md](docs/SETUP.md) and [VERCEL.md](docs/VERCEL.md).
 
 ## Verify
 
@@ -104,16 +101,13 @@ This is a deployed analytical prototype, not a grid control or dispatch system. 
 app/                  Dashboard, layout, and server API routes
 lib/forecast.ts       Feature engineering, ridge fit and evaluation
 lib/eia.ts            Server-side EIA client and short-lived memory cache
-lib/snapshots.ts      Durable database snapshot access
-db/                  Drizzle schema and database binding
-drizzle/             SQL migration and immutable migration metadata
 tests/               Offline checks and optional live integration checks
 docs/                Setup, architecture, model, data and validation docs
-build/ + scripts/    Retained deployment/runtime integration
+vercel.json          Vercel framework configuration
 .github/workflows/   Continuous integration
 ```
 
-Deployment integrations and starter components are retained to preserve the working build; product-specific logic is concentrated in `app/`, `lib/forecast.ts`, `lib/eia.ts`, `lib/snapshots.ts` and `db/schema.ts`.
+The Vercel branch removes Cloudflare-specific runtime integrations. Product logic is concentrated in `app/`, `lib/forecast.ts` and `lib/eia.ts`.
 
 ## Attribution
 

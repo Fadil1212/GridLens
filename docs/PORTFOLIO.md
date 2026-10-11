@@ -2,11 +2,11 @@
 
 ## Project description
 
-GridLens is a deployed full-stack electricity analytics application using live U.S. EIA data, chronological forecasting evaluation and interactive demand-stress planning. It combines TypeScript server ingestion, SQL snapshots, ridge regression and a React dashboard.
+GridLens is a deployed full-stack electricity analytics application using live U.S. EIA data, chronological forecasting evaluation and interactive demand-stress planning. It combines TypeScript server ingestion, server data caching, ridge regression and a React dashboard.
 
 ## Resume bullets grounded in the implementation
 
-- Built and deployed a full-stack electricity analytics app integrating live EIA data across 10 balancing authorities and 51 state jurisdictions, with interactive charts, CSV exports and database-backed snapshots.
+- Built and deployed a full-stack electricity analytics app integrating live EIA data across 10 balancing authorities and 51 state jurisdictions, with interactive charts, CSV exports and server-cached analytical responses.
 - Implemented lag-based ridge forecasting with a chronological seven-day holdout and paired EIA/seasonal benchmarks; an October 2026 PJM test achieved 1.99% one-step MAPE across 168 held-out hours.
 - Added recursive 24-hour forecasts, empirical calibration bands and a demand-stress worksheet, with explicit data completeness, freshness and methodology disclosures.
 

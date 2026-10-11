@@ -10,7 +10,7 @@ Returns authority, source, server fetch time, latest observed record, aligned ho
 - `400`: invalid authority.
 - `503`: upstream, model or database operation unavailable; response includes an error message.
 
-Grid responses have a private five-minute browser cache header; the server snapshot expires after ten minutes. Refreshing the UI does not guarantee a new upstream fetch inside that window.
+Grid responses have a private five-minute browser cache header; the cached computation revalidates after ten minutes. Refreshing the UI does not guarantee a new upstream fetch inside that window.
 
 ## GET `/api/energy`
 
@@ -21,10 +21,10 @@ Generation totals use the source unit of thousand MWh. Prices are cents/kWh. The
 - `200`: aggregated state data available.
 - `503`: upstream or database unavailable.
 
-Server snapshots expire after one day.
+Server-cached computations revalidate after one day.
 
 ## Authentication and credentials
 
-The current hosted Site is private and requires platform access. Normal requests from the dashboard use the visitor's platform session; the app has no separate API-key authentication scheme for visitors. The EIA key is server-only. Private Sites service-access credentials are platform-managed and must never be committed or shown in client examples.
+The EIA key is server-only. The app itself does not implement visitor authentication. Access to a Vercel deployment depends on the project's deployment-protection settings. Do not assume that a successful deployment is publicly accessible until checking it without authentication.
 
 The API is an internal product surface, not a separately hardened public API. Public request rate limits and service-level guarantees are not implemented.

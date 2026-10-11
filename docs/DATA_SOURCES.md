@@ -30,4 +30,4 @@ Source units: cents/kWh. Each state price is an unweighted average of monthly re
 
 Hourly data cover the last requested 60 days; state data use the previous calendar year. Generation month counts are displayed. Price-month coverage is not shown independently, so a state's price mean can reflect fewer observations than its generation coverage. EIA records can lag or be revised.
 
-Snapshots expire after ten minutes for grid data and one day for state data. Refresh is on demand. A failed source request results in an explicit error; no fabricated dataset is substituted.
+Cached computations revalidate after ten minutes for grid data and one day for state data. Refresh is on demand. A failed source request results in an explicit error; no fabricated dataset is substituted.
